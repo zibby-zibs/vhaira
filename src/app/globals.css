@@ -1,21 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Noto+Sans+JP:wght@100..900&display=swap");
+@import url("https://db.onlinewebfonts.com/c/02a5628b91717ae7191a2b202a5e93a4?family=Orelo+SemiWide+Regular");
+@import url("https://db.onlinewebfonts.com/c/4ad139328279a233d116d1dfb4f13f08?family=Orelo+SemiWide+Bold");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 20 17% 6%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 17% 6%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 17% 6%;
+    --primary: 28 87% 49%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 17 55% 45%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 20 5% 27%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 28 87% 49%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 17 55% 45%;
+    --input: 17 55% 45%;
+    --ring: 28 87% 49%;
+    --chart-1: 28 87% 49%;
+    --chart-2: 17 55% 45%;
+    --chart-3: 20 5% 27%;
+    --chart-4: 20 17% 6%;
+    --chart-5: 28 70% 40%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 20 17% 6%;
+    --foreground: 0 0% 98%;
+    --card: 20 17% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 20 17% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 28 87% 49%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 17 55% 45%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 20 5% 27%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 28 87% 49%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 17 55% 45%;
+    --input: 17 55% 45%;
+    --ring: 28 87% 49%;
+    --chart-1: 28 87% 49%;
+    --chart-2: 17 55% 45%;
+    --chart-3: 20 5% 27%;
+    --chart-4: 20 17% 6%;
+    --chart-5: 28 70% 40%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply overflow-x-hidden max-w-[100vw];
+  }
+}
+
+/* Replace the previous nav-links related CSS with this */
+.nav-links {
+  --underline-width: 2px;
+  --underline-color: #000;
+  position: relative;
+}
+
+.nav-links::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: var(--underline-width);
+  background-color: #b36c33;
+  transition: width 0.3s ease, transform 0.3s ease;
+  transform: translateX(0);
+}
+
+.nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+/* This handles the sliding animation */
+.nav-link:hover ~ .nav-links::before {
+  width: 0;
+}
+
+.nav-link:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--underline-width);
+  background-color: #b36c33;
+  transform-origin: left;
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Add this to your CSS */
+.hamburger-menu {
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hamburger-menu .line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+/* Last line starts at full width and shrinks on hover */
+.hamburger-menu:hover .line:last-child {
+  width: 16px;
+  background-color: #b36c33;
+}
+
+/* Middle line fades slightly on hover */
+.hamburger-menu:hover .line:nth-child(2) {
+  background-color: #b36c33;
+}
+
+/* First line extends slightly on hover */
+.hamburger-menu:hover .line:first-child {
+  width: 28px;
+  background-color: #b36c33;
+}
+
+/* Add this to your existing nav-link styles */
+.active-link::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--underline-width);
+  background-color: #b36c33;
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+/* Add this for smooth transitions between visuals */
+.visual-hero-transition {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.visual-hero-transition.fade {
+  opacity: 0;
 }
