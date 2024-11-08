@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Vhaira | Luxury Hair Styling & Education",
     description:
       "Through a blend of artistry and precision, Vhaira creates transformative hair experiences that celebrate your unique beauty. More than a luxury hair styling destination, we're dedicated to empowering individuals through expert education and bespoke bridal services.",
-    url: "https://vhaira.com",
+    url: "https://vhaira.vercel.app/",
     siteName: "Vhaira",
     images: [
       {
