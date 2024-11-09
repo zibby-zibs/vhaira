@@ -4,9 +4,9 @@ import React from "react";
 
 const AboutVhaira = () => {
   return (
-    <div className="max-w-7xl mx-auto  p-12">
+    <div className="max-w-7xl mx-auto">
       <div className=" flex flex-col-reverse lg:flex-row lg:items-center gap-5 lg:justify-between">
-        <article className="lg:max-w-2xl font-noto text-lg text-white/80 font-light leading-7 space-y-6">
+        <article className="lg:max-w-2xl font-noto lg:text-lg text-white/80 font-light leading-7 space-y-6">
           <h1 className="uppercase font-jost font-medium text-4xl text-center text-secondary">
             About Vhaira
           </h1>
@@ -37,7 +37,7 @@ const AboutVhaira = () => {
             height={500}
             content="cover"
             alt="vhaira-portrait"
-            className="rounded-full max-w-[500px] max-h-[500px] object-cover"
+            className="rounded-full w-full max-w-[500px] mx-auto lg:mx-0 max-h-[500px] object-cover"
           />
         </figure>
       </div>

@@ -17,7 +17,10 @@ export default function ParallaxSection({ children }: ParallaxSectionProps) {
   const y = useTransform(scrollYProgress, [0, 1], ["100%", "0%"]);
 
   return (
-    <div ref={ref} className="relative w-full h-fit -mt-[40svh] duration-200">
+    <div
+      ref={ref}
+      className="relative w-full h-fit -mt-[calc(50svh+60px)] sm:-mt-[40svh] duration-200"
+    >
       <motion.div style={{ y }} className="relative z-10 h-fit">
         {children}
       </motion.div>
