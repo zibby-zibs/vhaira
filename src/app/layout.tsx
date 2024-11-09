@@ -1,18 +1,5 @@
 import type { Metadata } from "next";
-// import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/header";
-
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
 
 export const metadata: Metadata = {
   title: {
@@ -99,10 +86,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-jost antialiased text-white`}>
-        <Navbar />
-        {children}
-      </body>
+      <body className={`font-noto antialiased text-white`}>{children}</body>
     </html>
   );
 }
