@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -25,8 +26,8 @@ const data = {
       url: "#",
       items: [
         {
-          title: "Images",
-          url: "#",
+          title: "Media",
+          url: "/admin/media",
         },
         {
           title: "Videos",
@@ -117,7 +118,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         pathname.startsWith(`${item.url}/`)
                       }
                     >
-                      <a href={item.url}>{item.title}</a>
+                      <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
