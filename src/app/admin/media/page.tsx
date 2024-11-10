@@ -23,7 +23,11 @@ const MediaPage = async () => {
 
         <aside>
           {success ? (
-            <GalleryComponent src={data ?? []} />
+            data?.length ?? 0 > 0 ? (
+              <GalleryComponent src={data ?? []} />
+            ) : (
+              <p>Upload some media to get started</p>
+            )
           ) : (
             <p>Error Getting Data</p>
           )}
