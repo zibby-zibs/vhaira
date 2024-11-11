@@ -72,7 +72,11 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
         return true;
       });
 
-      if (validFiles.length === 0) return;
+      if (validFiles.length === 0)
+        return toast.warning(
+          "Some files were too large. Maximum size is 15MB."
+        );
+
       const newFiles = acceptedFiles.map((file) => ({ file, progress: 0 }));
       setUploadingFiles((prev) => [...prev, ...newFiles]);
 
@@ -91,9 +95,19 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
 
         try {
           // Determine resource type based on file mime type
-          const resourceType = uploadingFile.file.type.startsWith("video/")
-            ? "video"
-            : "image";
+          const isVideo = uploadingFile.file.type.startsWith("video/");
+          const resourceType = isVideo ? "video" : "image";
+
+          // Add transformation parameters for videos
+          if (isVideo) {
+            formData.append(
+              "transformation",
+              JSON.stringify({
+                quality: 60,
+                format: "mp4",
+              })
+            );
+          }
 
           const response = await fetch(
             `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
