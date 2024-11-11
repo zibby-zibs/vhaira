@@ -7,6 +7,7 @@ import user_management from "./user-management.jpg";
 import booking_image from "./booking-image.jpg";
 import courses_image from "./courses-image.jpg";
 import trending_hair from "./trending-hair.jpg";
+import thumb from "./thumb.png";
 
 export {
   portrait,
@@ -18,4 +19,5 @@ export {
   booking_image,
   courses_image,
   trending_hair,
+  thumb,
 };

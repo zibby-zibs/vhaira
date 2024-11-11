@@ -1,31 +1,118 @@
 "use client";
 
-import React from "react";
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import React, { memo, useState } from "react";
+// import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+import Masonry from "react-masonry-css";
 import MediaView from "./media-view";
-import { CloudinaryResource } from "@/app/actions/media";
+import { CloudinaryResource, deleteMediaItems } from "@/app/actions/media";
+import { useRouter } from "next/navigation";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from "../ui/button";
+import { Loader2, Trash } from "lucide-react";
+import { toast } from "sonner";
+import { useMediaStore } from "@/store/media";
 
 type Props = {
   src: CloudinaryResource[];
 };
 
 const GalleryComponent = ({ src }: Props) => {
+  const { selectedMedia, setSelectedMedia } = useMediaStore();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      const result = await deleteMediaItems(selectedMedia);
+      if (result.success) {
+        setSelectedMedia([]);
+        toast.success("Deletion Completed");
+        router.refresh();
+      } else {
+        toast.error("Failed to delete media");
+      }
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
-    <main>
-      <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}>
-        {/* @ts-expect-error - react-responsive-masonry types are incomplete */}
-        <Masonry gutter={10}>
-          {src.map((src) => (
-            <MediaView
-              src={src.secure_url}
-              key={src.asset_id}
-              className="rounded-lg"
-            />
-          ))}
-        </Masonry>
-      </ResponsiveMasonry>
-    </main>
+    <div className="relative">
+      {selectedMedia.length > 0 && (
+        <div className="sticky top-0 z-50 bg-background p-4 shadow-md mb-4">
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button variant="destructive" disabled={isDeleting}>
+                {isDeleting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  <Trash className="mr-2 h-4 w-4" />
+                )}
+                Delete {selectedMedia.length} selected items
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This will permanently delete {selectedMedia.length} selected
+                  items. This action cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel className="bg-black border-0">
+                  Cancel
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-red-500 text-white hover:bg-red-500"
+                  onClick={handleDelete}
+                >
+                  {isDeleting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Deleting
+                    </>
+                  ) : (
+                    "Delete"
+                  )}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      )}
+
+      <Masonry
+        breakpointCols={{
+          default: 4,
+          1024: 3,
+          700: 2,
+          500: 1,
+        }}
+        className="flex w-auto"
+        columnClassName="p-2"
+      >
+        {src.map((item) => (
+          <MediaView
+            key={item.public_id}
+            src={item}
+            className="mb-4 rounded-lg"
+          />
+        ))}
+      </Masonry>
+    </div>
   );
 };
 
-export default GalleryComponent;
+export default memo(GalleryComponent);

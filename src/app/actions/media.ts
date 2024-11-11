@@ -72,3 +72,31 @@ export async function fetchAllMedia() {
     return { success: false, error: "Failed to fetch media" };
   }
 }
+
+export async function deleteMediaItems(
+  items: { public_id: string; resource_type: "image" | "video" }[]
+) {
+  try {
+    const deletePromises = items.map((item) => {
+      return new Promise((resolve, reject) => {
+        cloudinary.uploader.destroy(
+          item.public_id,
+          { resource_type: item.resource_type },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          }
+        );
+      });
+    });
+
+    await Promise.all(deletePromises);
+    return { success: true };
+  } catch (error) {
+    console.error("Error deleting media:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to delete media",
+    };
+  }
+}
