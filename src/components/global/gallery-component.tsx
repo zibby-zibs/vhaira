@@ -59,7 +59,10 @@ const GalleryComponent = ({ src }: Props) => {
                 ) : (
                   <Trash className="mr-2 h-4 w-4" />
                 )}
-                Delete {selectedMedia.length} selected items
+                Delete{" "}
+                {`${selectedMedia.length} selected ${
+                  selectedMedia.length > 1 ? "items" : "item"
+                }`}
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
