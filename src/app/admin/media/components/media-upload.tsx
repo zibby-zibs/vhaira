@@ -61,7 +61,7 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
-      const MAX_FILE_SIZE = 15 * 1024 * 1024;
+      const MAX_FILE_SIZE = 25 * 1024 * 1024;
       const validFiles = acceptedFiles.filter((file) => {
         if (file.size > MAX_FILE_SIZE) {
           toast.warning(
@@ -94,28 +94,16 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
         formData.append("folder", "vhaira/hair-images");
 
         try {
-          // Determine resource type based on file mime type
           const isVideo = uploadingFile.file.type.startsWith("video/");
           const resourceType = isVideo ? "video" : "image";
 
-          // Add transformation parameters for videos
-          if (isVideo) {
-            formData.append(
-              "transformation",
-              JSON.stringify({
-                quality: 60,
-                format: "mp4",
-              })
-            );
-          }
+          // Construct URL with transformations for videos
+          const baseUrl = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`;
 
-          const response = await fetch(
-            `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/${resourceType}/upload`,
-            {
-              method: "POST",
-              body: formData,
-            }
-          );
+          const response = await fetch(baseUrl, {
+            method: "POST",
+            body: formData,
+          });
 
           if (!response.ok) throw new Error("Upload failed");
 
@@ -137,7 +125,10 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
                 : f
             )
           );
-          throw error;
+          setUploadingFiles((prev) =>
+            prev.filter((f) => f.file !== uploadingFile.file)
+          );
+          toast.error("Upload Failed");
         }
       });
 
@@ -156,7 +147,7 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
       "video/*": [],
     },
     multiple: true,
-    maxSize: 15 * 1024 * 1024,
+    maxSize: 25 * 1024 * 1024,
   });
 
   const removeUploadedFile = (fileToRemove: File) => {
