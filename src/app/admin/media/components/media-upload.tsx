@@ -6,6 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type Props = {
   onUploadComplete?: (urls: string[]) => void;
@@ -60,6 +61,18 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
+      const MAX_FILE_SIZE = 15 * 1024 * 1024;
+      const validFiles = acceptedFiles.filter((file) => {
+        if (file.size > MAX_FILE_SIZE) {
+          toast.warning(
+            `File ${file.name} is too large. Maximum size is 15MB.`
+          );
+          return false;
+        }
+        return true;
+      });
+
+      if (validFiles.length === 0) return;
       const newFiles = acceptedFiles.map((file) => ({ file, progress: 0 }));
       setUploadingFiles((prev) => [...prev, ...newFiles]);
 
