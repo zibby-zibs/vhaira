@@ -2,8 +2,10 @@ import React from "react";
 import MediaUpload from "./components/media-upload";
 import GalleryComponent from "@/components/global/gallery-component";
 import { fetchAllMedia } from "@/app/actions/media";
+import { unstable_noStore } from "next/cache";
 
 const MediaPage = async () => {
+  unstable_noStore();
   const { data, success } = await fetchAllMedia();
 
   return (
