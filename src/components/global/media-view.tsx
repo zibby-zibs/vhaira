@@ -19,6 +19,7 @@ import {
 import { toast } from "sonner";
 import { useMediaStore } from "@/store/media";
 import { useRouter } from "next/navigation";
+import { useLongPress } from "use-long-press";
 
 type Props = {
   src: CloudinaryResource;
@@ -36,7 +37,6 @@ const MediaView = ({ src, className = "" }: Props) => {
   const isSelected = selectedMedia.some(
     (item) => item.public_id === src.public_id
   );
-  if (!src) return null;
 
   const handleSingleDelete = async (
     id: string,
@@ -67,8 +67,23 @@ const MediaView = ({ src, className = "" }: Props) => {
     setSelectedMedia(newSelectedMedia);
   };
 
+  const bind = useLongPress(
+    (e) => {
+      handleCheckboxChange(
+        e as React.MouseEvent<HTMLButtonElement>,
+        src.public_id,
+        src.resource_type
+      );
+    },
+    {
+      threshold: 500, // Time in ms to trigger long press
+      cancelOnMovement: true,
+    }
+  );
+  if (!src) return null;
+
   const mediaContent = imageTypes ? (
-    <div className="relative group">
+    <div className="relative group" {...bind()}>
       <div className="absolute top-2 flex justify-between gap-2 z-10 w-full p-2">
         <Checkbox
           checked={isSelected}
