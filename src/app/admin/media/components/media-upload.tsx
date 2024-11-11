@@ -142,6 +142,7 @@ const MediaUpload = ({ onUploadComplete }: Props) => {
       "video/*": [],
     },
     multiple: true,
+    maxSize: 15 * 1024 * 1024,
   });
 
   const removeUploadedFile = (fileToRemove: File) => {
