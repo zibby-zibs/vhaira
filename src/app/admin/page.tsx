@@ -24,6 +24,7 @@ import {
   video_tutorials,
 } from "@/assets/images";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const BentoGrid = ({
   className,
@@ -50,20 +51,24 @@ const BentoGridItem = ({
   description,
   icon: Icon,
   content,
+  link,
 }: {
   className?: string;
   title: string;
   description: string;
   icon: React.ElementType;
   content: React.ReactNode;
+  link: string;
 }) => {
+  const router = useRouter();
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
       className={cn(
-        "rounded-xl  bg-white dark:bg-gray-800 shadow-xl overflow-hidden",
+        "rounded-xl  bg-white dark:bg-gray-800 shadow-xl overflow-hidden hover:cursor-pointer",
         className
       )}
+      onClick={() => router.push(link)}
     >
       <div className="p-4">
         <div className="flex items-center justify-between mb-2">
@@ -129,12 +134,14 @@ export default function HairstylingDashboard() {
           icon={Camera}
           content={<ImageGallery />}
           className="md:col-span-2"
+          link="/admin/media"
         />
         <BentoGridItem
           title="Video Tutorials"
           description="Access and organize your video content"
           icon={Film}
           content={<VideoPlayer />}
+          link="video-tutorials"
         />
         <BentoGridItem
           title="Sanity CMS"
@@ -152,6 +159,7 @@ export default function HairstylingDashboard() {
               />
             </div>
           }
+          link="/admin/sanity"
         />
         <BentoGridItem
           title="Newsletter"
@@ -169,6 +177,7 @@ export default function HairstylingDashboard() {
               />
             </div>
           }
+          link="/admin/newsletter"
         />
         <BentoGridItem
           title="User Management"
@@ -186,6 +195,7 @@ export default function HairstylingDashboard() {
               />
             </div>
           }
+          link="/admin/users"
         />
         <BentoGridItem
           title="Manage Courses"
@@ -203,7 +213,7 @@ export default function HairstylingDashboard() {
               />
             </div>
           }
-          className="md:col-span-2"
+          link="/admin/courses"
         />
         <BentoGridItem
           title="Bookings"
@@ -221,6 +231,7 @@ export default function HairstylingDashboard() {
               />
             </div>
           }
+          link="/admin/bookings"
         />
         <BentoGridItem
           title="Trending Styles"
@@ -238,6 +249,7 @@ export default function HairstylingDashboard() {
               />
             </div>
           }
+          link="/admin/trending"
         />
         {/* <BentoGridItem
           title="Style Creator"

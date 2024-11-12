@@ -41,7 +41,7 @@ const data = {
       items: [
         {
           title: "Sanity",
-          url: "#",
+          url: "/admin/sanity",
         },
       ],
     },
