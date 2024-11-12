@@ -43,7 +43,7 @@ export default function Transformation({ data }: TransformationProps) {
               secondImage={item.secondImage}
               firstImageClassName="object-cover"
               secondImageClassname="object-cover"
-              className="h-[250px] max-w-[250px] md:h-[500px] md:max-w-[500px] w-full"
+              className="h-[250px] max-w-full md:h-[500px] md:max-w-[500px] w-full"
               slideMode="hover"
             />
           </div>
