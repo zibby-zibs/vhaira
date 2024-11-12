@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Transformation from "@/components/transformation";
 import { AnimatedTestimonials } from "@/components/global/animated-testimonials";
+import FrequentlyBought from "@/components/frequently-bought-product";
 
 export default function Home() {
   const data = [
@@ -89,6 +90,37 @@ export default function Home() {
     },
   ];
 
+  const products = [
+    {
+      id: 1,
+      name: "Face Oil Serum",
+      image: "/2149016619.jpg",
+      color: "Red",
+      price: "10,000",
+    },
+    {
+      id: 2,
+      name: "Face Oil Serum",
+      image: "/2149016619.jpg",
+      color: "Blue",
+      price: "20,000",
+    },
+    {
+      id: 3,
+      name: "Face Oil Serum",
+      image: "/2149016619.jpg",
+      color: "Green",
+      price: "30,000",
+    },
+    {
+      id: 4,
+      name: "Face Oil Serum",
+      image: "/2149016619.jpg",
+      color: "Yellow",
+      price: "40,000",
+    },
+  ];
+
   return (
     <main>
       <section className="bg-foreground">
@@ -123,6 +155,12 @@ export default function Home() {
             </section>
           </ParallaxSection>
           <section className="container">
+            <div>
+              <h1 className="text-center text-4xl lg:text-5xl font-jost text-primary font-semibold uppercase py-8">
+                Frequently Bought Products
+              </h1>
+              <FrequentlyBought data={products} />
+            </div>
             <Transformation data={compareData} />
 
             <div className="mt-8 lg:mt-16">

@@ -15,7 +15,7 @@ export const testimonials = defineType({
     }),
     defineField({
       name: "title",
-      title: "CustomerTitle",
+      title: "Customer Title",
       type: "string",
     }),
     defineField({
