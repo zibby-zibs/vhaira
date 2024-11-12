@@ -2,10 +2,52 @@ import AboutVhaira from "@/components/about";
 import VisualHero from "@/components/global/visual-hero";
 // import Image from "next/image";
 import ParallaxSection from "@/components/global/parallax-section";
+import BrowseCategory from "@/components/browse-category";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import Transformation from "@/components/transformation";
 
 export default function Home() {
   const data = [
     "https://res.cloudinary.com/dk1wsirgg/video/upload/v1731104113/vhaira/q0qzrkydq2vpmwwhionn.mp4",
+  ];
+
+  const compareData = [
+    {
+      id: 1,
+      firstImage:
+        "https://img.freepik.com/free-photo/beautiful-strong-confident-black-model-khaki-thin-coat-isolated-white_633478-1224.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+      secondImage:
+        "https://img.freepik.com/premium-photo/young-caucasian-woman-with-color-dreadlocks-sits-couch-touches-her-hair-vertical-frame_134398-21851.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+    },
+    {
+      id: 2,
+      firstImage:
+        "https://img.freepik.com/free-photo/beautiful-woman-posing-studio_23-2148661295.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+      secondImage:
+        "https://img.freepik.com/free-photo/black-woman-white-shirt-curly-hair_633478-2403.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+    },
+    {
+      id: 3,
+      firstImage:
+        "https://img.freepik.com/free-photo/beautiful-woman-posing-studio_23-2148661295.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+      secondImage:
+        "https://img.freepik.com/free-photo/black-woman-white-shirt-curly-hair_633478-2403.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+    },
+    {
+      id: 4,
+      firstImage:
+        "https://img.freepik.com/free-photo/beautiful-woman-posing-studio_23-2148661295.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+      secondImage:
+        "https://img.freepik.com/free-photo/black-woman-white-shirt-curly-hair_633478-2403.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+    },
+    {
+      id: 5,
+      firstImage:
+        "https://img.freepik.com/free-photo/beautiful-woman-posing-studio_23-2148661295.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+      secondImage:
+        "https://img.freepik.com/free-photo/black-woman-white-shirt-curly-hair_633478-2403.jpg?uid=R38132337&ga=GA1.1.452279408.1726766691&semt=ais_hybrid",
+    },
   ];
   return (
     <main>
@@ -23,15 +65,28 @@ export default function Home() {
                 one-on-one masterpiece, tailored to bring out the best version
                 of you. Discover the touch of artistry that makes Vhaira unique.
               </p>
+
+              <Button className="mt-9 rounded-full bg-secondary font-jost font-medium text-xl">
+                Book Consultation
+                <ArrowRight />
+              </Button>
             </article>
           </div>
         </div>
 
-        <ParallaxSection>
-          <section className="bg-foreground relative z-10 h-full p-5 lg:p-12">
+        <div className="bg-foreground">
+          <ParallaxSection>
+            <section className="bg-foreground relative z-10 py-10">
+              <div className="container">
+                <BrowseCategory />
+              </div>
+            </section>
+          </ParallaxSection>
+          <section className="container">
+            <Transformation data={compareData} />
             <AboutVhaira />
           </section>
-        </ParallaxSection>
+        </div>
       </section>
     </main>
   );

@@ -14,6 +14,14 @@ export const category = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "image",
+      type: "image",
+      validation: (Rule) => Rule.required(),
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
