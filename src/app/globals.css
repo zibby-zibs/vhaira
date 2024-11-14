@@ -109,7 +109,9 @@ body {
   width: 0;
   height: var(--underline-width);
   background-color: #b36c33;
-  transition: width 0.3s ease, transform 0.3s ease;
+  transition:
+    width 0.3s ease,
+    transform 0.3s ease;
   transform: translateX(0);
 }
 
@@ -199,4 +201,16 @@ body {
 
 .visual-hero-transition.fade {
   opacity: 0;
+}
+
+@keyframes infiniteSlider {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 6));
+  }
+}
+.animate-infinite-slider {
+  animation: infiniteSlider 25s linear infinite;
 }

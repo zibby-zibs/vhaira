@@ -26,7 +26,7 @@ const MediaPage = async () => {
         <aside>
           {success ? (
             (data?.length ?? 0) > 0 ? (
-              <GalleryComponent src={data ?? []} />
+              <GalleryComponent src={data ?? []} admin={true} />
             ) : (
               <p>Upload some media to get started</p>
             )

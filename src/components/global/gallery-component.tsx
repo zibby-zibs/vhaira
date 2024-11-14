@@ -24,9 +24,10 @@ import { useMediaStore } from "@/store/media";
 
 type Props = {
   src: CloudinaryResource[];
+  admin?: boolean;
 };
 
-const GalleryComponent = ({ src }: Props) => {
+const GalleryComponent = ({ src, admin }: Props) => {
   const { selectedMedia, setSelectedMedia } = useMediaStore();
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
@@ -100,6 +101,7 @@ const GalleryComponent = ({ src }: Props) => {
         breakpointCols={{
           default: 4,
           1024: 3,
+          1280: 4,
           700: 2,
           500: 1,
         }}
@@ -111,6 +113,7 @@ const GalleryComponent = ({ src }: Props) => {
             key={item.public_id}
             src={item}
             className="mb-4 rounded-lg"
+            admin={admin}
           />
         ))}
       </Masonry>

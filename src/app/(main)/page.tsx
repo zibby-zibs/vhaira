@@ -154,16 +154,18 @@ export default function Home() {
               </div>
             </section>
           </ParallaxSection>
-          <section className="container">
+          <section className="container lg:mt-32">
             <div>
               <h1 className="text-center text-4xl lg:text-5xl font-jost text-primary font-semibold uppercase py-8">
                 Frequently Bought Products
               </h1>
               <FrequentlyBought data={products} />
             </div>
-            <Transformation data={compareData} />
+            <div className="mt-16 lg:mt-48">
+              <Transformation data={compareData} />
+            </div>
 
-            <div className="mt-8 lg:mt-16">
+            <div className="mt-20 lg:mt-40">
               <h1 className="text-center text-4xl lg:text-5xl font-jost text-primary font-semibold uppercase py-8">
                 Reviews
               </h1>

@@ -24,9 +24,10 @@ import { useLongPress } from "use-long-press";
 type Props = {
   src: CloudinaryResource;
   className?: string;
+  admin?: boolean;
 };
 
-const MediaView = ({ src, className = "" }: Props) => {
+const MediaView = ({ src, className = "", admin }: Props) => {
   const router = useRouter();
   const { selectedMedia, setSelectedMedia } = useMediaStore();
   const [showDialog, setShowDialog] = useState(false);
@@ -84,26 +85,28 @@ const MediaView = ({ src, className = "" }: Props) => {
 
   const mediaContent = imageTypes ? (
     <div className="relative group" {...bind()}>
-      <div className="absolute top-2 flex justify-between gap-2 z-10 w-full p-2">
-        <Checkbox
-          checked={isSelected}
-          onClick={(e) =>
-            handleCheckboxChange(e, src.public_id, src.resource_type)
-          }
-          className="bg-white data-[state=checked]:bg-red-500 border-0 h-7 w-7"
-        />
-        <Button
-          variant="destructive"
-          size="icon"
-          onClick={() => handleSingleDelete(src.public_id, src.resource_type)}
-        >
-          {isDeleting ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Trash className="h-4 w-4" />
-          )}
-        </Button>
-      </div>
+      {admin ? (
+        <div className="absolute top-2 flex justify-between gap-2 z-10 w-full p-2">
+          <Checkbox
+            checked={isSelected}
+            onClick={(e) =>
+              handleCheckboxChange(e, src.public_id, src.resource_type)
+            }
+            className="bg-white data-[state=checked]:bg-red-500 border-0 h-7 w-7"
+          />
+          <Button
+            variant="destructive"
+            size="icon"
+            onClick={() => handleSingleDelete(src.public_id, src.resource_type)}
+          >
+            {isDeleting ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Trash className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
+      ) : null}
       <Image
         src={src.secure_url}
         alt="Media content"
@@ -114,26 +117,28 @@ const MediaView = ({ src, className = "" }: Props) => {
     </div>
   ) : videoTypes ? (
     <div className="relative group">
-      <div className="absolute top-2 p-2 flex gap-2 justify-between items-center z-10 w-full">
-        <Checkbox
-          checked={isSelected}
-          onClick={(e) =>
-            handleCheckboxChange(e, src.public_id, src.resource_type)
-          }
-          className="bg-white data-[state=checked]:bg-red-500 border-0 h-7 w-7"
-        />
-        <Button
-          variant="destructive"
-          size="icon"
-          onClick={() => handleSingleDelete(src.public_id, src.resource_type)}
-        >
-          {isDeleting ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <Trash className="h-4 w-4" />
-          )}
-        </Button>
-      </div>
+      {admin ? (
+        <div className="absolute top-2 p-2 flex gap-2 justify-between items-center z-10 w-full">
+          <Checkbox
+            checked={isSelected}
+            onClick={(e) =>
+              handleCheckboxChange(e, src.public_id, src.resource_type)
+            }
+            className="bg-white data-[state=checked]:bg-red-500 border-0 h-7 w-7"
+          />
+          <Button
+            variant="destructive"
+            size="icon"
+            onClick={() => handleSingleDelete(src.public_id, src.resource_type)}
+          >
+            {isDeleting ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Trash className="h-4 w-4" />
+            )}
+          </Button>
+        </div>
+      ) : null}
       <video
         controls
         className={`w-full ${className} `}

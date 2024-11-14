@@ -9,6 +9,7 @@ import useMediaQuery from "@/hooks/use-media-query";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import { FaBagShopping } from "react-icons/fa6";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/bridal", label: "Bridal" },
@@ -21,8 +22,15 @@ const Navbar = () => {
   const { isMobile, isDesktop, isTablet } = useMediaQuery();
   const pathname = usePathname();
 
+  const isTransparent = pathname === "/";
+
   return (
-    <header className="px-6 py-4 relative z-40">
+    <header
+      className={cn(
+        "px-6 py-4 relative z-40",
+        isTransparent ? "bg-transparent" : "bg-foreground"
+      )}
+    >
       <nav className="flex items-center justify-between container">
         <div className="flex items-center gap-5">
           {(isMobile || isTablet) && (
