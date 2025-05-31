@@ -22,7 +22,8 @@ export default async function GalleryPage() {
           VHAIRA
         </p>
         <h1 className="text-2xl lg:text-5xl font-semibold uppercase pt-2">
-          Step Into a World of Creativity: A Showcase of Artful Transformations
+          Step Into a World of <span className="text-primary"> Creativity</span>
+          : A Showcase of Artful Transformations
         </h1>
       </article>
 
